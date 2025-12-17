@@ -1,4 +1,4 @@
-export * from "./Name";
-export * from "./Phone";
+export * from "./ContactInfo";
+export * from "./PrivateInfo";
 export * from "./ProfileImage";
 export * from "./Success";

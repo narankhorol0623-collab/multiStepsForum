@@ -1,10 +1,13 @@
-import React from "react";
-export const Footer = () => {
+export const Footer = ({ step, handlePrev, handleClick }) => {
   return (
-    <div className="bg-black h-11 w-104 cursor-pointer flex items-center justify-center gap-2">
-      <button className="">Continue</button>
-      <p className="text-white">1/3</p>
-      <img src="chevron.png" alt="" />
+    <div className="flex justify-evenly pt-4 gap-3">
+      <div className="h-11 w-30 cursor-pointer flex items-center justify-center rounded-md text-black border-2">
+        <button onClick={handlePrev}>Previous</button>
+      </div>
+      <div className="bg-black h-11 w-70 cursor-pointer flex items-center rounded-md justify-center gap-2">
+        <button onClick={handleClick}>Continue {step}/3</button>
+        <img src="chevron.png" alt="" />
+      </div>
     </div>
   );
 };
