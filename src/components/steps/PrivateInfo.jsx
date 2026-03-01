@@ -1,39 +1,87 @@
-import React from "react";
-import { Input } from "../ui/Input";
 import { Header } from "../ui/Header";
-import Footer from "../ui/Footer";
-import { steps } from "framer-motion";
+import { Input } from "../ui/Input";
 import { motion } from "framer-motion";
+import { Button } from "../Button";
+import { validateStepTwo } from "@/utils/validators";
+import { saveFormValues } from "@/utils/localStorage";
+import { animationVariant } from "../constants/animationVariant";
 
-export const PrivateInfo = ({ step, handlePrev, handleClick }) => {
+export const PrivateInfo = ({
+  step,
+  handleClick,
+  handlePrev,
+  handleChange,
+  formValues,
+  formErrors,
+  setFormErrors,
+
+}) => {
+  const handleSubmitSecond = () => {
+    const { errors, isValid } = validateStepTwo(formValues);
+
+    setFormErrors(errors);
+
+    if (isValid) {
+      handleClick();
+    }
+    saveFormValues(formValues, step);
+  };
+
   return (
     <motion.div
-      className="space-y-3 pt-7 bg-white w-112.5 h-147 flex flex-col justify-center rounded-xl pl-5 pr-5 pb-7"
-      initial={{ opacity: 0, x: 200 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -100 }}
+      initial="enter"
+      animate="active"
+      exit="exit"
+      variants={animationVariant}
       transition={{ duration: 1 }}
+      className="flex bg-gray-100 items-center min-h-screen"
     >
-      <div className="space-y-3 pt-7">
+      <div className="flex flex-col ml-150 justify-between p-8 bg-white rounded-lg">
         <Header />
-        <Input LabelValue={"Email"} placeholderName={"Your Email"} />
-        <Input
-          LabelValue={"Phone Number"}
-          placeholderName={"Your phone number"}
+        <div className="pt-7 space-y-3">
+          <Input
+            type="text"
+            name="email"
+            LabelValue={"Email"}
+            placeholderName={"Your email"}
+            onChange={handleChange}
+            errors={formErrors}
+            value={formValues.email}
+          />
+          <Input
+            type="text"
+            name="phoneNumber"
+            LabelValue={"Phone number"}
+            placeholderName={"Your phone number"}
+            onChange={handleChange}
+            errors={formErrors}
+            value={formValues.phoneNumber}
+          />
+          <Input
+            type="password"
+            name="password"
+            LabelValue={"Password"}
+            placeholderName={"Your password"}
+            onChange={handleChange}
+            errors={formErrors}
+            value={formValues.password}
+          />
+          <Input
+            type="password"
+            name="confirmPassword"
+            LabelValue={"Confirm password"}
+            placeholderName={"Confirm password"}
+            onChange={handleChange}
+            errors={formErrors}
+            value={formValues.confirmPassword}
+          />
+        </div>
+        <Button
+          step={step}
+          handleClick={handleSubmitSecond}
+          handlePrev={handlePrev}
         />
-        <Input
-          LabelValue={"Password"}
-          placeholderName={"Enter your new password"}
-        />
-        <Input
-          LabelValue={"Confirm Password"}
-          placeholderName={"Confirm your previous password"}
-        />
-
-        <Footer step={step} handleClick={handleClick} handlePrev={handlePrev} />
       </div>
     </motion.div>
   );
 };
-
-export default PrivateInfo;

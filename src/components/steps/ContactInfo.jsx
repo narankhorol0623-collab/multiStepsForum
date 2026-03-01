@@ -1,25 +1,78 @@
-import React from "react";
+import { Header } from "@/components/ui/Header";
 import { Input } from "../ui/Input";
-import { Header } from "../ui/Header";
-import Footer from "../ui/Footer";
+import { animationVariant } from "@/constants/animationVariants";
 import { motion } from "framer-motion";
-import { animationVariant } from "../constants/animation-variant";
+import { Button } from "../Button";
+import { validateStepOne } from "@/utils/validators";
+import { saveFormValues } from "@/utils/localStorage";
 
-export const ContactInfo = ({ step, handlePrev, handleClick }) => {
+export const ContactInfo = ({
+  step,
+  handleClick,
+  handlePrev,
+  handleChange,
+  formValues,
+  formErrors,
+  setFormErrors,
+
+}) => {
+  const handleSubmit = () => {
+    const { errors, isValid } = validateStepOne(formValues);
+
+    setFormErrors(errors);
+
+    if (isValid) {
+      handleClick();
+    }
+    saveFormValues(formValues, step);
+  };
+
   return (
     <motion.div
-      className="space-y-3 pt-7 bg-white w-112.5 h-125 flex flex-col justify-center rounded-xl p-5"
-      initial={{ opacity: 0, x: 200 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -100 }}
+      initial="enter"
+      animate="active"
+      exit="exit"
+      variants={animationVariant}
       transition={{ duration: 1 }}
+      className="flex bg-gray-100 items-center min-h-screen"
     >
-      <Header />
-      <Input LabelValue={"First name"} placeholderName={"Your first name"} />
-      <Input LabelValue={"Last name"} placeholderName={"Your last name"} />
-      <Input LabelValue={"Username"} placeholderName={"Your username"} />
+      <div className="flex flex-col ml-150 justify-between p-8 bg-white rounded-lg">
+        <Header />
+        <div className="space-y-3 pt-7">
+          <Input
+            LabelValue={"First name"}
+            placeholderName={"Your first name"}
+            name="firstName"
+            onChange={handleChange}
+            errors={formErrors}
+            value={formValues.firstName}
+          />
 
-      <Footer step={step} handleClick={handleClick} />
+          <Input
+            LabelValue={"Last name"}
+            name="lastName"
+            placeholderName={"Your last name"}
+            onChange={handleChange}
+            errors={formErrors}
+            value={formValues.lastName}
+          />
+
+          <Input
+            LabelValue={"Username"}
+            placeholderName={"Your username"}
+            name="userName"
+            onChange={handleChange}
+            errors={formErrors}
+            value={formValues.userName}
+          />
+        </div>
+
+        <Button
+          step={step}
+          handleClick={handleSubmit}
+          handlePrev={handlePrev}
+        />
+      </div>
     </motion.div>
   );
 };
