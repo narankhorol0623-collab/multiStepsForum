@@ -1,12 +1,12 @@
 export const saveFormValues = (formValues, step) => {
   localStorage.setItem(
-    "formValue",
-    JSON.stringify({ ...formValues, step: step + 1 })
+    "formValues",
+    JSON.stringify({ ...formValues, step: step + 1 }),
   );
 };
 
 export const retrieveFormValues = () => {
-  const value = localStorage.getItem("formValue");
+  const value = localStorage.getItem("formValues");
 
   return value ? JSON.parse(value) : null;
 };
