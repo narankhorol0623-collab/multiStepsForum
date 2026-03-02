@@ -6,6 +6,7 @@ import { validateStepTwo } from "@/utils/validators";
 import { saveFormValues } from "@/utils/localStorage";
 import { Button } from "../ui/Button";
 import { animationVariant } from "../constants/animationVariant";
+import { ButtonClick } from "../Button";
 
 export const PrivateInfo = ({
   step,
@@ -45,7 +46,7 @@ export const PrivateInfo = ({
             placeholderName={"Your email"}
             onChange={handleChange}
             errors={formErrors}
-            value={formValues.email}
+            value={formValues && formValues.firstName ? formValues.email : ""}
           />
           <Input
             type="text"
@@ -54,7 +55,9 @@ export const PrivateInfo = ({
             placeholderName={"Your phone number"}
             onChange={handleChange}
             errors={formErrors}
-            value={formValues.phoneNumber}
+            value={
+              formValues && formValues.firstName ? formValues.phoneNumber : ""
+            }
           />
           <Input
             type="password"
@@ -63,7 +66,7 @@ export const PrivateInfo = ({
             placeholderName={"Your password"}
             onChange={handleChange}
             errors={formErrors}
-            value={formValues.password}
+            value={formValues && formValues.firstName ? formValues.password : ""}
           />
           <Input
             type="password"
@@ -72,12 +75,12 @@ export const PrivateInfo = ({
             placeholderName={"Confirm password"}
             onChange={handleChange}
             errors={formErrors}
-            value={formValues.confirmPassword}
+            value={formValues && formValues.firstName ? formValues.confirmPassword : ""}
           />
         </div>
-        <Button
+        <ButtonClick
           step={step}
-          handleClick={handleSubmitSecond}
+          handleClick={handleClick}
           handlePrev={handlePrev}
         />
       </div>

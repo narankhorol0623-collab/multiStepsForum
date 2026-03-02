@@ -6,6 +6,8 @@ import { saveFormValues } from "@/utils/localStorage";
 import { Button } from "../ui/Button";
 import { animationVariant } from "../constants/animationVariant";
 import { initialValues } from "../constants/initial";
+import { ButtonClick } from "../Button";
+
 export const ContactInfo = ({
   step,
   handleClick,
@@ -32,11 +34,12 @@ export const ContactInfo = ({
       animate="active"
       exit="exit"
       variants={animationVariant}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.2 }}
       className="flex bg-gray-100 items-center min-h-screen"
     >
       <div className="flex flex-col ml-150 justify-between p-8 bg-white rounded-lg">
         <Header />
+
         <div className="space-y-3 pt-7">
           <Input
             LabelValue={"First name"}
@@ -71,10 +74,9 @@ export const ContactInfo = ({
             }
           />
         </div>
-
-        <Button
+        <ButtonClick
           step={step}
-          handleClick={handleSubmit}
+          handleClick={handleClick}
           handlePrev={handlePrev}
         />
       </div>

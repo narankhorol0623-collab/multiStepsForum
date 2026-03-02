@@ -7,8 +7,7 @@ import {
   Success,
 } from "@/components/steps";
 
-
-export const Home = () => {
+const Home = () => {
   const [step, setStep] = useState(0);
   const handlePrev = () => {
     setStep(step - 1);
@@ -16,17 +15,22 @@ export const Home = () => {
   const handleClick = () => {
     setStep(step + 1);
   };
+
   const Container = [ContactInfo, PrivateInfo, ProfileImage, Success][step];
+  // const Container = [ContactInfo][step];
+
   return (
-    <div className="flex justify-center shadow-2xl items-center m-auto min-h-screen">
-      <div className="flex flex-col p-9 text-white rounded-lg">
+    <div className="">
+      <div
+        className="flex justify-center shadow-2xl items-center w-full min-h-screen text-black 
+      "
+      >
         <div>
           <AnimatePresence mode="wait">
             <Container
               handlePrev={handlePrev}
               handleClick={handleClick}
               step={step}
-
             />
           </AnimatePresence>
         </div>

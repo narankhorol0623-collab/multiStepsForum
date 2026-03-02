@@ -8,6 +8,7 @@ import { ErrorMessage } from "../ui/ErrorMessage";
 import { saveFormValues } from "@/utils/localStorage";
 import { Button } from "../ui/Button";
 import { animationVariant } from "../constants/animationVariant";
+import { ButtonClick } from "../Button";
 
 export const ProfileImage = ({
   step,
@@ -59,7 +60,9 @@ export const ProfileImage = ({
             LabelValue={"Date of Birth"}
             onChange={handleChange}
             errors={formErrors}
-            value={formValues.birthDay}
+            value={
+              formValues && formValues.firstName ? formValues.birthDay : ""
+            }
           />
           <Input
             type="file"
@@ -121,9 +124,9 @@ export const ProfileImage = ({
             )}
           </div>
         </div>
-        <Button
+        <ButtonClick
           step={step}
-          handleClick={handleSubmitThird}
+          handleClick={handleClick}
           handlePrev={handlePrev}
         />
       </div>

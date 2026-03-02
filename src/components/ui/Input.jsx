@@ -4,7 +4,6 @@ import { Label } from "./Label";
 export const Input = ({
   placeholderName,
   LabelValue,
-  ErrorMessageValue,
   type,
   hidden = false,
 }) => {
